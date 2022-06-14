@@ -120,5 +120,5 @@ const createPhotoDescription = function () {
   };
 };
 
-console.log(Array.from({length: 25}, createPhotoDescription));
+Array.from({length: 25}, createPhotoDescription);
 
