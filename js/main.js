@@ -1,33 +1,3 @@
-
-//https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-/**
- * Возвращает случайное число
- * @param {number} a - минимальное значение из диапазона
- * @param {number} b - максимальное значение из диапазона
- * @return {integer}  - случайное число
- */
-
-const getRandomNumber = function (a, b) {
-  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
-  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
-  const result = Math.random() * (upper - lower + 1) + lower;
-
-  return Math.floor(result);
-};
-
-/**
-*Проверяет длину введенного комментария
-* @param {string} string - строка
-* @param {integer} maxLength - максимальная длина строки
-* @return {boolean}  - true/false
-*/
-
-const checkStringLength = function (string, length) {
-  return string.length <= length;
-};
-
-checkStringLength('Комментарий', 140);
-
 const NAME_USERS = [
   'Белла',
   'Кендал',
@@ -63,6 +33,54 @@ const TEXT_COMMENT = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
+//--------------------------------------------------------------------
+// счетчик id для фотограф
+let photoId = 1;
+const getUnigPhotoId = function () {
+  return photoId++;
+};
+
+// счетчик id для коммент
+let commentId = 1;
+const getUnigCommentId = function () {
+  commentId += 10;
+  return commentId;
+};
+
+// обратный счетчик url для фотограф
+let photoUrl = 25;
+const getUnigUrl = function () {
+  return photoUrl --;
+};
+//--------------------------------------------------------------------
+/**
+ * Возвращает случайное число
+ * @param {number} a - минимальное значение из диапазона
+ * @param {number} b - максимальное значение из диапазона
+ * @return {integer}  - случайное число
+ */
+
+const getRandomNumber = function (a, b) {
+  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
+  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
+  const result = Math.random() * (upper - lower + 1) + lower;
+
+  return Math.floor(result);
+};
+//--------------------------------------------------------------------
+/**
+*Проверяет длину введенного комментария
+* @param {string} string - строка
+* @param {integer} maxLength - максимальная длина строки
+* @return {boolean}  - true/false
+*/
+
+const checkStringLength = function (string, length) {
+  return string.length <= length;
+};
+
+checkStringLength('Комментарий', 140);
+//--------------------------------------------------------------------
 /**
 * Возвращает случайный элемент
 * @param {array} elements - массив данных
@@ -72,7 +90,7 @@ const TEXT_COMMENT = [
 const getRandomArrayElement = function (elements) {
   return elements[getRandomNumber(0, elements.length - 1)];
 };
-
+//--------------------------------------------------------------------
 /**
 * Создает комментарий
 * @return {array}  - массив данных
@@ -80,13 +98,13 @@ const getRandomArrayElement = function (elements) {
 
 const createPhotoComment = function () {
   return {
-    id: getRandomNumber(1,1000),
+    id: getUnigCommentId(),
     avatar: `img/avatar-${getRandomNumber(1,25)}.svg`,
     message: getRandomArrayElement(TEXT_COMMENT),
     name: getRandomArrayElement(NAME_USERS)
   };
 };
-
+//--------------------------------------------------------------------
 /**
 * Создает описание изображения
 * @return {array}  - массив данных
@@ -94,13 +112,13 @@ const createPhotoComment = function () {
 
 const createPhotoDescription = function () {
   return {
-    id: getRandomNumber(1,25),
-    url: `photos/${getRandomNumber(1,25)}.jpg`,
+    id: getUnigPhotoId(),
+    url: `photos/${getUnigUrl()}.jpg`,
     description: getRandomArrayElement(DESCRIPTION_PHOTO),
     likes: getRandomNumber(15,200),
     comments: createPhotoComment()
   };
 };
 
-Array.from({length: 25}, createPhotoDescription);
+console.log(Array.from({length: 25}, createPhotoDescription));
 
