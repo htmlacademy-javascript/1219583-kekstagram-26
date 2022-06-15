@@ -5,7 +5,7 @@
  * @return {integer}  - случайное число
  */
 
- const getRandomNumber = function (a, b) {
+const getRandomNumber = function (a, b) {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
   const result = Math.random() * (upper - lower + 1) + lower;
@@ -24,5 +24,5 @@ const checkStringLength = function (string, length) {
   return string.length <= length;
 };
 
-//checkStringLength('Комментарий', 140);
+checkStringLength('Комментарий', 140);
 export {getRandomNumber};
