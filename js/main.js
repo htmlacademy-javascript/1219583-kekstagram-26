@@ -48,9 +48,9 @@ const getUnigCommentId = function () {
 };
 
 // обратный счетчик url для фотограф
-let photoUrl = 25;
+let photoUrl = 1;
 const getUnigUrl = function () {
-  return photoUrl --;
+  return photoUrl ++;
 };
 //--------------------------------------------------------------------
 /**
