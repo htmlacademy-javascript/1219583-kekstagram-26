@@ -78,6 +78,8 @@ const createPhotoComment = function () {
     name: getRandomArrayElement(NAME_USERS)
   };
 };
+
+const getSomeComments = () => Array.from({length: getRandomNumber(1,10)}, createPhotoComment);
 //--------------------------------------------------------------------
 /**
 * Создает описание изображения
@@ -90,9 +92,10 @@ const createPhotoDescription = function () {
     url: `photos/${getUnigUrl()}.jpg`,
     description: getRandomArrayElement(DESCRIPTION_PHOTO),
     likes: getRandomNumber(15,200),
-    comments: createPhotoComment()
+    comments: getSomeComments()
   };
 };
 
 const dataPhotoDescription = () => Array.from({length: 25}, createPhotoDescription);
+
 export { dataPhotoDescription };
