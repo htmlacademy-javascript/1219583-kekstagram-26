@@ -1,4 +1,4 @@
 import { dataPhotoDescription } from './data.js';
-import { photoList } from './photos.js';
+import './photos.js';
 
 dataPhotoDescription();
