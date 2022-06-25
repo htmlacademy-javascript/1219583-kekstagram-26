@@ -1,11 +1,11 @@
-import { dataPhotoDescription } from './data.js'
+import { dataPhotoDescription } from './data.js';
 
 const photoList = document.querySelector('.pictures');
 const photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const similarPhoto = dataPhotoDescription();
 const photosFragment = document.createDocumentFragment();
 
-similarPhoto.forEach(({id, url, description, likes, comments}) => {
+similarPhoto.forEach(({url, likes, comments}) => {
   const photoElement = photoTemplate.cloneNode(true);
 
   photoElement.querySelector('.picture__img').src = url;
@@ -16,4 +16,3 @@ similarPhoto.forEach(({id, url, description, likes, comments}) => {
 });
 
 photoList.append(photosFragment);
-
