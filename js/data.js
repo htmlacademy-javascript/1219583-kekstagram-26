@@ -38,22 +38,18 @@ const TEXT_COMMENT = [
 //--------------------------------------------------------------------
 // счетчик id для фотограф
 let photoId = 1;
-const getUnigPhotoId = function () {
-  return photoId++;
-};
+const getUnigPhotoId = () => photoId++;
 
 // счетчик id для коммент
 let commentId = 1;
-const getUnigCommentId = function () {
+const getUnigCommentId = () => {
   commentId += 10;
   return commentId;
 };
 
-// обратный счетчик url для фотограф
+// счетчик url для фотограф
 let photoUrl = 1;
-const getUnigUrl = function () {
-  return photoUrl ++;
-};
+const getUnigUrl = () => photoUrl++;
 
 /**
 * Возвращает случайный элемент
@@ -61,7 +57,7 @@ const getUnigUrl = function () {
 * @return {string}  - случайный элемент
 */
 
-const getRandomArrayElement = function (elements) {
+const getRandomArrayElement = (elements) => {
   return elements[getRandomNumber(0, elements.length - 1)];
 };
 //--------------------------------------------------------------------
@@ -70,23 +66,23 @@ const getRandomArrayElement = function (elements) {
 * @return {array}  - массив данных
 */
 
-const createPhotoComment = function () {
+const createPhotoComment = () => {
   return {
     id: getUnigCommentId(),
-    avatar: `img/avatar-${getRandomNumber(1,25)}.svg`,
+    avatar: `img/avatar-${getRandomNumber(1,6)}.svg`,
     message: getRandomArrayElement(TEXT_COMMENT),
     name: getRandomArrayElement(NAME_USERS)
   };
 };
 
-const getSomeComments = () => Array.from({length: getRandomNumber(1,10)}, createPhotoComment);
+const getSomeComments = () => Array.from({length: getRandomNumber(1,25)}, createPhotoComment);
 //--------------------------------------------------------------------
 /**
 * Создает описание изображения
 * @return {array}  - массив данных
 */
 
-const createPhotoDescription = function () {
+const createPhotoDescription = () => {
   return {
     id: getUnigPhotoId(),
     url: `photos/${getUnigUrl()}.jpg`,
@@ -96,6 +92,6 @@ const createPhotoDescription = function () {
   };
 };
 
-const dataPhotoDescription = () => Array.from({length: 25}, createPhotoDescription);
+const getPhotoDescription = (count) => Array.from({length: count}, createPhotoDescription);
 
-export { dataPhotoDescription };
+export { getPhotoDescription };

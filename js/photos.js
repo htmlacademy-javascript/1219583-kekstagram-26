@@ -1,18 +1,28 @@
-import { dataPhotoDescription } from './data.js';
+import { getPhotoDescription } from './data.js';
+import { openFullPhoto } from './full-photo.js';
 
 const photoList = document.querySelector('.pictures');
 const photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const similarPhoto = dataPhotoDescription();
+
 const photosFragment = document.createDocumentFragment();
 
-similarPhoto.forEach(({url, likes, comments}) => {
-  const photoElement = photoTemplate.cloneNode(true);
+/**
+ * Отображение фото других пользователей
+ * @param {array} similarPhoto - массив данных
+ */
+const getPhotosPreview = (similarPhoto) => {
+  similarPhoto.forEach((photo) => {
+    const photoElement = photoTemplate.cloneNode(true);
 
-  photoElement.querySelector('.picture__img').src = url;
-  photoElement.querySelector('.picture__likes').textContent = likes;
-  photoElement.querySelector('.picture__comments').textContent = comments.length;
+    photoElement.querySelector('.picture__img').src = photo.url;
+    photoElement.querySelector('.picture__likes').textContent = photo.likes;
+    photoElement.querySelector('.picture__comments').textContent = photo.comments.length;
 
-  photosFragment.append(photoElement);
-});
+    photoElement.addEventListener('click', () => openFullPhoto(photo));
+    photosFragment.appendChild(photoElement);
+  });
 
-photoList.append(photosFragment);
+  photoList.appendChild(photosFragment);
+};
+
+export { getPhotosPreview };

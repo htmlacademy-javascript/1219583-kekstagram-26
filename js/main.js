@@ -1,4 +1,6 @@
-import { dataPhotoDescription } from './data.js';
-import './photos.js';
+import { getPhotoDescription } from './data.js';
+import {getPhotosPreview} from './photos.js';
 
-dataPhotoDescription();
+const similarPhoto = getPhotoDescription(25);
+
+getPhotosPreview(similarPhoto);
