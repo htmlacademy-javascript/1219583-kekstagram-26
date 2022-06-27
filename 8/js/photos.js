@@ -1,4 +1,3 @@
-import { getPhotoDescription } from './data.js';
 import { openFullPhoto } from './full-photo.js';
 
 const photoList = document.querySelector('.pictures');

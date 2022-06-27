@@ -38,7 +38,7 @@ const TEXT_COMMENT = [
 //--------------------------------------------------------------------
 // счетчик id для фотограф
 let photoId = 1;
-const getUnigPhotoId = () => photoId++;
+const getUnigPhotoId = () => ( photoId++);
 
 // счетчик id для коммент
 let commentId = 1;
@@ -49,7 +49,7 @@ const getUnigCommentId = () => {
 
 // счетчик url для фотограф
 let photoUrl = 1;
-const getUnigUrl = () => photoUrl++;
+const getUnigUrl = () => ( photoUrl++);
 
 /**
 * Возвращает случайный элемент
@@ -57,23 +57,21 @@ const getUnigUrl = () => photoUrl++;
 * @return {string}  - случайный элемент
 */
 
-const getRandomArrayElement = (elements) => {
-  return elements[getRandomNumber(0, elements.length - 1)];
-};
+const getRandomArrayElement = (elements) => ( elements[getRandomNumber(0, elements.length - 1)]);
 //--------------------------------------------------------------------
 /**
 * Создает комментарий
 * @return {array}  - массив данных
 */
 
-const createPhotoComment = () => {
-  return {
+const createPhotoComment = () => (
+  {
     id: getUnigCommentId(),
     avatar: `img/avatar-${getRandomNumber(1,6)}.svg`,
     message: getRandomArrayElement(TEXT_COMMENT),
     name: getRandomArrayElement(NAME_USERS)
-  };
-};
+  }
+);
 
 const getSomeComments = () => Array.from({length: getRandomNumber(1,25)}, createPhotoComment);
 //--------------------------------------------------------------------
@@ -82,15 +80,15 @@ const getSomeComments = () => Array.from({length: getRandomNumber(1,25)}, create
 * @return {array}  - массив данных
 */
 
-const createPhotoDescription = () => {
-  return {
+const createPhotoDescription = () => (
+  {
     id: getUnigPhotoId(),
     url: `photos/${getUnigUrl()}.jpg`,
     description: getRandomArrayElement(DESCRIPTION_PHOTO),
     likes: getRandomNumber(15,200),
     comments: getSomeComments()
-  };
-};
+  }
+);
 
 const getPhotoDescription = (count) => Array.from({length: count}, createPhotoDescription);
 
