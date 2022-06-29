@@ -1,4 +1,3 @@
-import { dataPhotoDescription } from './data.js';
-import './photos.js';
+import {renderPhotosPreview} from './photos.js';
 
-dataPhotoDescription();
+renderPhotosPreview();

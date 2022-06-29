@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /**
  * Возвращает случайное число
  * @param {number} a - минимальное значение из диапазона
@@ -25,4 +26,7 @@ const checkStringLength = function (string, length) {
 };
 
 checkStringLength('Комментарий', 140);
-export {getRandomNumber};
+
+const isEscapeKey = (evt) => ( evt.key === 'Escape' );
+
+export {getRandomNumber, isEscapeKey};

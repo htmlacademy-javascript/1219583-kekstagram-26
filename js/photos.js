@@ -1,18 +1,29 @@
-import { dataPhotoDescription } from './data.js';
+import { openFullPhoto } from './full-photo.js';
+import { getPhotoDescription } from './data.js';
 
 const photoList = document.querySelector('.pictures');
 const photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const similarPhoto = dataPhotoDescription();
-const photosFragment = document.createDocumentFragment();
 
-similarPhoto.forEach(({url, likes, comments}) => {
-  const photoElement = photoTemplate.cloneNode(true);
+const photosPreview = getPhotoDescription(25);
 
-  photoElement.querySelector('.picture__img').src = url;
-  photoElement.querySelector('.picture__likes').textContent = likes;
-  photoElement.querySelector('.picture__comments').textContent = comments.length;
+/**
+ * Отображение фото других пользователей
+ * @param {array} similarPhoto - массив данных
+ */
+const renderPhotosPreview = () => {
+  const photosFragment = document.createDocumentFragment();
+  photosPreview.forEach((photo) => {
+    const photoElement = photoTemplate.cloneNode(true);
 
-  photosFragment.append(photoElement);
-});
+    photoElement.querySelector('.picture__img').src = photo.url;
+    photoElement.querySelector('.picture__likes').textContent = photo.likes;
+    photoElement.querySelector('.picture__comments').textContent = photo.comments.length;
 
-photoList.append(photosFragment);
+    photoElement.addEventListener('click', () => openFullPhoto(photo));
+    photosFragment.appendChild(photoElement);
+  });
+
+  photoList.appendChild(photosFragment);
+};
+
+export { renderPhotosPreview };
