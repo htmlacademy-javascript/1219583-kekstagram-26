@@ -1,16 +1,18 @@
 import { openFullPhoto } from './full-photo.js';
+import { getPhotoDescription } from './data.js';
 
 const photoList = document.querySelector('.pictures');
 const photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-const photosFragment = document.createDocumentFragment();
+const photosPreview = getPhotoDescription(25);
 
 /**
  * Отображение фото других пользователей
  * @param {array} similarPhoto - массив данных
  */
-const getPhotosPreview = (similarPhoto) => {
-  similarPhoto.forEach((photo) => {
+const renderPhotosPreview = () => {
+  const photosFragment = document.createDocumentFragment();
+  photosPreview.forEach((photo) => {
     const photoElement = photoTemplate.cloneNode(true);
 
     photoElement.querySelector('.picture__img').src = photo.url;
@@ -24,4 +26,4 @@ const getPhotosPreview = (similarPhoto) => {
   photoList.appendChild(photosFragment);
 };
 
-export { getPhotosPreview };
+export { renderPhotosPreview };
