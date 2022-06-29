@@ -1,3 +1,6 @@
+import { isEscapeKey } from './util.js';
+// import { renderPhotosPreview } from './photos.js';
+
 const fullPhoto = document.querySelector('.big-picture');
 const bodyDoc = document.querySelector('body');
 
@@ -18,38 +21,6 @@ const commentCount = fullPhoto.querySelector('.social__comment-count');
 commentCount.classList.add('hidden');
 commentLoader.classList.add('hidden');
 //-------------------------------------------
-
-/**
-* Переключает классы
-*/
-const togglePhoto = () => {
-  fullPhoto.classList.toggle('hidden');
-  bodyDoc.classList.toggle('modal-open');
-};
-
-//Определение клавиши Escape
-const isEsc= (evt) => evt.key === 'Escape';
-
-/**
-* Закрывает полноразмерное изображение нажатием на кнопку выхода
-*/
-const closeFullPhoto = () => {
-  document.removeEventListener('keydown', isEsc);
-  togglePhoto();
-  commentsForm.innerHTML = '';
-};
-
-//Клик на кнопку выхода
-closeButton.addEventListener('click', closeFullPhoto);
-
-/**
-* Закрывает полноразмерное изображение нажатием на клавишу esc
-*/
-const clickEscButton = () => {
-  if (isEsc) {
-    closeFullPhoto();
-  }
-};
 
 /**
  * Заполняет форму комментариями пользователя
@@ -85,14 +56,41 @@ const createFullPhoto = (photo) => {
 };
 
 /**
- * Открывает полное изобаржение
- */
-const openFullPhoto = (photo) => {
-  togglePhoto();
-  document.addEventListener('keydown', clickEscButton);
-
-  createFullPhoto(photo);
+* Закрывает полноразмерное изображение нажатием на клавишу esc
+*/
+const clickEscButton = () => {
+  if (isEscapeKey) {
+    closeFullPhoto();
+  }
 };
 
-export { openFullPhoto };
+/**
+ * Открывает полноразмерное изобрaжение
+ */
+function openFullPhoto (photo) {
+  fullPhoto.classList.remove('hidden');
+  bodyDoc.classList.add('modal-open');
 
+  createFullPhoto(photo);
+  document.addEventListener('keydown', clickEscButton);
+}
+
+/**
+* Основная функция закрытия полноразмерного изображения
+*/
+function closeFullPhoto () {
+  fullPhoto.classList.add('hidden');
+  bodyDoc.classList.remove('modal-open');
+  document.removeEventListener('keydown', clickEscButton);
+
+  commentsForm.innerHTML = '';
+}
+
+/**
+* Закрывает полноразмерное изображение нажатием на кнопку выхода
+*/
+closeButton.addEventListener('click', () => {
+  closeFullPhoto();
+});
+
+export { openFullPhoto };
