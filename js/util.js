@@ -29,4 +29,6 @@ checkStringLength('Комментарий', 140);
 
 const isEscapeKey = (evt) => ( evt.key === 'Escape' );
 
-export {getRandomNumber, isEscapeKey};
+// const checkStringLength = (string = '', length = 0) => string.length <= length;
+
+export {getRandomNumber, isEscapeKey, checkStringLength};

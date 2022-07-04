@@ -2,7 +2,7 @@ import { isEscapeKey } from './util.js';
 // import { renderPhotosPreview } from './photos.js';
 
 const fullPhoto = document.querySelector('.big-picture');
-const bodyDoc = document.querySelector('body');
+const bodyElement = document.querySelector('body');
 
 const photoSrc = fullPhoto.querySelector('.big-picture__img').querySelector('img');
 const photoLike = fullPhoto.querySelector('.likes-count');
@@ -56,35 +56,35 @@ const createFullPhoto = (photo) => {
 };
 
 /**
+* Основная функция закрытия полноразмерного изображения
+*/
+const closeFullPhoto = () => {
+  fullPhoto.classList.add('hidden');
+  bodyElement.classList.remove('modal-open');
+  document.removeEventListener('keydown', clickEscButton);
+
+  commentsForm.innerHTML = '';
+};
+
+/**
 * Закрывает полноразмерное изображение нажатием на клавишу esc
 */
-const clickEscButton = () => {
-  if (isEscapeKey) {
+function clickEscButton (evt) {
+  if (isEscapeKey(evt)) {
     closeFullPhoto();
   }
-};
+}
 
 /**
  * Открывает полноразмерное изобрaжение
  */
-function openFullPhoto (photo) {
+const openFullPhoto = (photo) => {
   fullPhoto.classList.remove('hidden');
-  bodyDoc.classList.add('modal-open');
+  bodyElement.classList.add('modal-open');
 
   createFullPhoto(photo);
   document.addEventListener('keydown', clickEscButton);
-}
-
-/**
-* Основная функция закрытия полноразмерного изображения
-*/
-function closeFullPhoto () {
-  fullPhoto.classList.add('hidden');
-  bodyDoc.classList.remove('modal-open');
-  document.removeEventListener('keydown', clickEscButton);
-
-  commentsForm.innerHTML = '';
-}
+};
 
 /**
 * Закрывает полноразмерное изображение нажатием на кнопку выхода
@@ -93,4 +93,4 @@ closeButton.addEventListener('click', () => {
   closeFullPhoto();
 });
 
-export { openFullPhoto };
+export { openFullPhoto, bodyElement };
