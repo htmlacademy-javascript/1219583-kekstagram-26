@@ -1,3 +1,6 @@
+import { getPhotoDescription } from './data.js';
 import {renderPhotosPreview} from './photos.js';
+import './validate-form.js';
 
-renderPhotosPreview();
+const generateRandomPhotos = getPhotoDescription(25);
+renderPhotosPreview(generateRandomPhotos);
