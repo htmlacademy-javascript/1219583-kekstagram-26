@@ -1,5 +1,4 @@
 import { isEscapeKey } from './util.js';
-// import { renderPhotosPreview } from './photos.js';
 
 const fullPhoto = document.querySelector('.big-picture');
 const bodyElement = document.querySelector('body');
@@ -14,12 +13,11 @@ const commentsForm = fullPhoto.querySelector('.social__comments');
 const oneCommentForm = commentsForm.querySelector('.social__comment');
 const commentsCount = fullPhoto.querySelector('.comments-count');
 
-// Временное скрытие .social__comment-count, .comments-loader
 const commentLoader = fullPhoto.querySelector('.comments-loader');
-const commentCount = fullPhoto.querySelector('.social__comment-count');
 
-commentCount.classList.add('hidden');
-commentLoader.classList.add('hidden');
+const loadedComment = document.querySelector('.comments-loaded');
+let photoComments = [];
+
 //-------------------------------------------
 
 /**
@@ -42,6 +40,14 @@ const createComment = (commentsList) => {
   commentsForm.appendChild(commentsFragment);
 };
 
+const loadSomeComments = function () {
+  createComment(photoComments.splice(0, 5));
+  loadedComment.textContent = commentsForm.querySelectorAll('.social__comment').length;
+  if (!photoComments.length) {
+    commentLoader.classList.add('hidden');
+  }
+};
+
 /**
  * Заполняет форму полноразмерного изображения
  * @param {Object} photo - обьект массива
@@ -51,8 +57,11 @@ const createFullPhoto = (photo) => {
   photoLike.textContent = photo.likes;
   commentsCount.textContent = photo.comments.length;
   photoDescription.textContent = photo.description;
+  photoComments = photo.comments;
 
-  createComment(photo.comments);
+  commentsForm.innerHTML = '';
+  loadSomeComments();
+  // createComment(photo.comments);
 };
 
 /**
@@ -61,8 +70,9 @@ const createFullPhoto = (photo) => {
 const closeFullPhoto = () => {
   fullPhoto.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
-  document.removeEventListener('keydown', clickEscButton);
 
+  document.removeEventListener('keydown', clickEscButton);
+  commentLoader.removeEventListener('click', loadSomeComments);
   commentsForm.innerHTML = '';
 };
 
@@ -82,15 +92,12 @@ const openFullPhoto = (photo) => {
   fullPhoto.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
 
-  createFullPhoto(photo);
   document.addEventListener('keydown', clickEscButton);
+  commentLoader.addEventListener('click', loadSomeComments);
+
+  createFullPhoto(photo);
 };
 
-/**
-* Закрывает полноразмерное изображение нажатием на кнопку выхода
-*/
-closeButton.addEventListener('click', () => {
-  closeFullPhoto();
-});
+closeButton.addEventListener('click', closeFullPhoto);
 
 export { openFullPhoto, bodyElement };
