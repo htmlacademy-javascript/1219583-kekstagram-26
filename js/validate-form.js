@@ -4,6 +4,7 @@ import { bodyElement } from './full-photo.js';
 const HASHTAG_PATTERN = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
 const MAX_HASHTAGS = 5;
 const COMMENT_MAX_LENGTH = 140;
+const HASHTAG_MAX_LENGTH = 20;
 
 const uploadInputElement = document.querySelector('#upload-file');
 const modalContainer = document.querySelector('.img-upload__overlay');
@@ -75,10 +76,10 @@ pristine.addValidator(hashtagInput, validateHashtagsCount, 'Не более 5 т
  */
 const validateHashtagsLength = (value) => {
   const words = value.split(' ');
-  return words.every((word) => word.length <= 20);
+  return words.every((word) => word.length <= HASHTAG_MAX_LENGTH);
 };
 
-pristine.addValidator(hashtagInput, validateHashtagsLength, 'Длина хештега не может превышать 20 символов');
+pristine.addValidator(hashtagInput, validateHashtagsLength, `Длина хештега не может превышать ${HASHTAG_MAX_LENGTH} символов`);
 
 /**
  * Проверка на допустимые символы
