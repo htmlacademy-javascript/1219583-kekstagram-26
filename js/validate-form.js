@@ -1,5 +1,6 @@
 import { isEscapeKey, checkStringLength } from './util.js';
 import { bodyElement } from './full-photo.js';
+import {enableFilters, disableFilters, makeScalable, makeUnscalable} from './filters.js';
 
 const HASHTAG_PATTERN = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
 const MAX_HASHTAGS = 5;
@@ -20,6 +21,9 @@ const showModalHandler = () => {
   modalContainer.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onEscPress);
+
+  enableFilters();
+  makeScalable();
 };
 
 /**
@@ -29,6 +33,9 @@ const closeModal = () => {
   modalContainer.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscPress);
+
+  disableFilters();
+  makeUnscalable();
   uploadForm.reset();
 };
 

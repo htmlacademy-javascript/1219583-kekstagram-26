@@ -29,6 +29,14 @@ checkStringLength('Комментарий', 140);
 
 const isEscapeKey = (evt) => ( evt.key === 'Escape' );
 
-// const checkStringLength = (string = '', length = 0) => string.length <= length;
+const mathClamp = function (number, min, max) {
+  if (number < min) {
+    number = min;
+  }
+  if (number > max) {
+    number = max;
+  }
+  return number;
+};
 
-export {getRandomNumber, isEscapeKey, checkStringLength};
+export {getRandomNumber, isEscapeKey, checkStringLength, mathClamp};
