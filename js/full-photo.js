@@ -16,6 +16,9 @@ const commentsCount = fullPhoto.querySelector('.comments-count');
 const commentLoader = fullPhoto.querySelector('.comments-loader');
 
 const loadedComment = document.querySelector('.comments-loaded');
+
+const SHOWN_COMMENTS_COUNT = 5;
+let shownComments = 0;
 let photoComments = [];
 
 //-------------------------------------------
@@ -41,11 +44,16 @@ const createComment = (commentsList) => {
 };
 
 const loadSomeComments = function () {
-  createComment(photoComments.splice(0, 5));
-  loadedComment.textContent = commentsForm.querySelectorAll('.social__comment').length;
-  if (!photoComments.length) {
+  createComment(photoComments.slice(shownComments, shownComments + SHOWN_COMMENTS_COUNT));
+  shownComments += SHOWN_COMMENTS_COUNT;
+
+  if (photoComments.length > shownComments) {
+    commentLoader.classList.remove('hidden');
+  } else {
     commentLoader.classList.add('hidden');
+    shownComments = photoComments.length;
   }
+  loadedComment.textContent = shownComments;
 };
 
 /**
@@ -53,6 +61,10 @@ const loadSomeComments = function () {
  * @param {Object} photo - обьект массива
  */
 const createFullPhoto = (photo) => {
+
+  shownComments = 0;
+  commentLoader.addEventListener('click', loadSomeComments);
+
   photoSrc.src = photo.url;
   photoLike.textContent = photo.likes;
   commentsCount.textContent = photo.comments.length;
@@ -61,7 +73,6 @@ const createFullPhoto = (photo) => {
 
   commentsForm.innerHTML = '';
   loadSomeComments();
-  // createComment(photo.comments);
 };
 
 /**
