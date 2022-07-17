@@ -5,9 +5,9 @@ const PREVIEW_MIN_SCALE = 25;
 const PREVIEW_MAX_SCALE = 100;
 const PREVIEW_DEFAULT_SCALE = 100;
 
-const effectLevelSliderContainer = document.querySelector('.effect-level__slider');
-const effectLevelInput = document.querySelector('.effect-level__value');
-const previewImgElement = document.querySelector('.img-upload__preview img');
+const effectSliderContainer = document.querySelector('.effect-level__slider');
+const effectInput = document.querySelector('.effect-level__value');
+const previewImg= document.querySelector('.img-upload__preview img');
 const scaleValueInput = document.querySelector('.scale__control--value');
 const imgEffectsFieldset = document.querySelector('.img-upload__effects');
 const uploadForm = document.querySelector('.img-upload__form');
@@ -71,19 +71,19 @@ const sliderFilterSettings = {
 };
 
 const showEffectSlider = () => {
-  effectLevelSliderContainer.removeAttribute('hidden', true);
+  effectSliderContainer.removeAttribute('hidden', true);
 };
 
 const hideEffectSlider = () => {
-  effectLevelSliderContainer.setAttribute('hidden', true);
+  effectSliderContainer.setAttribute('hidden', true);
 };
 
 const updatePreviewImgClass = (filterName) => {
-  previewImgElement.className = (filterName) ? `effects__preview--${filterName}` : '';
+  previewImg.className = (filterName) ? `effects__preview--${filterName}` : '';
 };
 
 const updatePreviewImgEffect = (effectName, effectValue) => {
-  previewImgElement.style.filter = (effectName) ? `${ImageEffectFilter[effectName]}(${effectValue})` : '';
+  previewImg.style.filter = (effectName) ? `${ImageEffectFilter[effectName]}(${effectValue})` : '';
 };
 
 function onFilterChange(evt) {
@@ -100,10 +100,10 @@ function onFilterChange(evt) {
 }
 
 function enableFilters() {
-  effectLevelInput.value = 1;
+  effectInput.value = 1;
   hideEffectSlider();
   effectValueSlider = noUiSlider.create(
-    effectLevelSliderContainer,
+    effectSliderContainer,
     {
       range: { min: 0, max: 1, },
       start: 1,
@@ -119,7 +119,7 @@ function enableFilters() {
   effectValueSlider.on('update', () => {
     const effectValue = effectValueSlider.get();
     const effectName = uploadForm.effect.value;
-    effectLevelInput.value = effectValue;
+    effectInput.value = effectValue;
     if (uploadForm.effect.value === 'none') {
       return;
     }
@@ -143,7 +143,7 @@ function getCurrentScale() {
 function setPreviewScale(scale) {
   scale = mathClamp(scale, PREVIEW_MIN_SCALE, PREVIEW_MAX_SCALE);
   scaleValueInput.value = `${scale}%`;
-  previewImgElement.style.transform = `scale(${scale}%)`;
+  previewImg.style.transform = `scale(${scale}%)`;
 }
 
 function onScaleButtonClick(evt) {
