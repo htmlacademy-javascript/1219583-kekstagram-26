@@ -7,7 +7,7 @@ const PREVIEW_DEFAULT_SCALE = 100;
 
 const effectSliderContainer = document.querySelector('.effect-level__slider');
 const effectInput = document.querySelector('.effect-level__value');
-const previewImg= document.querySelector('.img-upload__preview img');
+const previewImg = document.querySelector('.img-upload__preview img');
 const scaleValueInput = document.querySelector('.scale__control--value');
 const imgEffectsFieldset = document.querySelector('.img-upload__effects');
 const uploadForm = document.querySelector('.img-upload__form');
