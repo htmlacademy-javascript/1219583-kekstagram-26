@@ -5,7 +5,7 @@ const photoTemplate = document.querySelector('#picture').content.querySelector('
 
 /**
  * Отображение фото других пользователей
- * @param {array} similarPhoto - массив данных
+ * @param {array} photos - массив данных
  */
 const renderPhotosPreview = (photos) => {
   const photosFragment = document.createDocumentFragment();

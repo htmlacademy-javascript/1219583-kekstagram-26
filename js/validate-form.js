@@ -21,7 +21,6 @@ const showModalHandler = () => {
   modalContainer.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onEscPress);
-
   enableFilters();
   makeScalable();
 };
@@ -58,6 +57,7 @@ const pristine = new Pristine(uploadForm, {
 });
 
 uploadInputElement.addEventListener('change', showModalHandler);
+
 
 // отменить обработчик Esc при фокусе
 hashtagInput.addEventListener('keydown', (evt) => {
