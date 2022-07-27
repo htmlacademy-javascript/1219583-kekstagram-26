@@ -3,6 +3,12 @@ import { openFullPhoto } from './full-photo.js';
 const photoList = document.querySelector('.pictures');
 const photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
+const clearPhotosPreview = function () {
+  photoList.querySelectorAll('.picture').forEach((photoListElement) => {
+    photoListElement.remove();
+  });
+};
+
 /**
  * Отображение фото других пользователей
  * @param {array} photos - массив данных
@@ -23,4 +29,4 @@ const renderPhotosPreview = (photos) => {
   photoList.appendChild(photosFragment);
 };
 
-export { renderPhotosPreview };
+export { renderPhotosPreview, clearPhotosPreview };

@@ -60,4 +60,25 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export { getRandomNumber, isEscapeKey, checkStringLength, mathClamp, showAlert };
+const randomIntegersBetweenRange = function (count, min, max) {
+  const results = [];
+  for (let i = 0; i < count;) {
+    const randomInteger = getRandomNumber(min, max);
+    if (!results.includes(randomInteger)) {
+      results.push(randomInteger);
+      i++;
+    }
+  }
+  return results;
+};
+
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+export { getRandomNumber, isEscapeKey, checkStringLength, mathClamp, showAlert, randomIntegersBetweenRange, debounce };
