@@ -1,6 +1,8 @@
 import { isEscapeKey, checkStringLength } from './util.js';
 import { bodyElement } from './full-photo.js';
-import {enableFilters, disableFilters, makeScalable, makeUnscalable} from './filters.js';
+import {previewImg, enableFilters, disableFilters, makeScalable, makeUnscalable} from './filters.js';
+import { sendData } from './api.js';
+import { renderSuccessReport, renderErrorReport } from './report.js';
 
 const HASHTAG_PATTERN = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
 const MAX_HASHTAGS = 5;
@@ -14,15 +16,23 @@ const uploadForm = document.querySelector('.img-upload__form');
 const cancelButton = document.querySelector('#upload-cancel');
 
 const hashtagInput = document.querySelector('.text__hashtags');
+
 /**
 * Открытие модального окна
 */
 const showModalHandler = () => {
+  const file = uploadInputElement.files[0];
   modalContainer.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onEscPress);
   enableFilters();
   makeScalable();
+
+  const fileReader = new FileReader();
+  fileReader.onload = (evt) => {
+    previewImg.src = evt.target.result;
+  };
+  fileReader.readAsDataURL(file);
 };
 
 /**
@@ -136,10 +146,29 @@ cancelButton.addEventListener('click', () => {
   closeModal();
 });
 
+// uploadForm.addEventListener('submit', (evt) => {
+//   evt.preventDefault();
+//   const isFormValid = pristine.validate();
+//   if (isFormValid) {
+//     uploadForm.submit();
+//   }
+// });
+
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const isFormValid = pristine.validate();
   if (isFormValid) {
-    uploadForm.submit();
+    // uploadForm.submit();
+    sendData(
+      () => {
+        closeModal();
+        renderSuccessReport();
+      },
+      () => {
+        renderErrorReport();
+        closeModal();
+      },
+      new FormData(evt.target)
+    );
   }
 });
