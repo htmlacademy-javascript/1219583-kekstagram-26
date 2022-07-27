@@ -111,4 +111,4 @@ const openFullPhoto = (photo) => {
 
 closeButton.addEventListener('click', closeFullPhoto);
 
-export { openFullPhoto, bodyElement };
+export { openFullPhoto, closeFullPhoto, bodyElement };
