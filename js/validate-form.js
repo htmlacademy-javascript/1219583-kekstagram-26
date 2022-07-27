@@ -1,6 +1,8 @@
 import { isEscapeKey, checkStringLength } from './util.js';
 import { bodyElement } from './full-photo.js';
 import {previewImg, enableFilters, disableFilters, makeScalable, makeUnscalable} from './filters.js';
+import { sendData } from './api.js';
+import { renderSuccessReport, renderErrorReport } from './report.js';
 
 const HASHTAG_PATTERN = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
 const MAX_HASHTAGS = 5;
@@ -144,10 +146,29 @@ cancelButton.addEventListener('click', () => {
   closeModal();
 });
 
+// uploadForm.addEventListener('submit', (evt) => {
+//   evt.preventDefault();
+//   const isFormValid = pristine.validate();
+//   if (isFormValid) {
+//     uploadForm.submit();
+//   }
+// });
+
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const isFormValid = pristine.validate();
   if (isFormValid) {
-    uploadForm.submit();
+    // uploadForm.submit();
+    sendData(
+      () => {
+        closeModal();
+        renderSuccessReport();
+      },
+      () => {
+        renderErrorReport();
+        closeModal();
+      },
+      new FormData(evt.target)
+    );
   }
 });
