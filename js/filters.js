@@ -166,4 +166,4 @@ function makeUnscalable() {
   document.querySelector('.img-upload__scale').removeEventListener('click', onScaleButtonClick);
 }
 
-export { enableFilters, disableFilters, makeScalable, makeUnscalable };
+export { previewImg, enableFilters, disableFilters, makeScalable, makeUnscalable };
