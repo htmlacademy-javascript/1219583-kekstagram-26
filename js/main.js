@@ -1,4 +1,3 @@
-import './data.js';
 import {renderPhotosPreview, clearPhotosPreview} from './photos.js';
 import './validate-form.js';
 import  './filters.js';

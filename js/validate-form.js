@@ -146,14 +146,6 @@ cancelButton.addEventListener('click', () => {
   closeModal();
 });
 
-// uploadForm.addEventListener('submit', (evt) => {
-//   evt.preventDefault();
-//   const isFormValid = pristine.validate();
-//   if (isFormValid) {
-//     uploadForm.submit();
-//   }
-// });
-
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const isFormValid = pristine.validate();

@@ -71,11 +71,11 @@ const sliderFilterSettings = {
 };
 
 const showEffectSlider = () => {
-  effectSliderContainer.removeAttribute('hidden', true);
+  effectSliderContainer.classList.remove('hidden');
 };
 
 const hideEffectSlider = () => {
-  effectSliderContainer.setAttribute('hidden', true);
+  effectSliderContainer.classList.add('hidden');
 };
 
 const updatePreviewImgClass = (filterName) => {
