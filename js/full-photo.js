@@ -31,10 +31,10 @@ const createComment = (commentsList) => {
   const commentsFragment = document.createDocumentFragment();
   commentsList.forEach((comment) => {
     const commentItem = oneCommentForm.cloneNode(true);
-    const commetatorPicture = commentItem.querySelector('.social__picture');
+    const commentatorPicture = commentItem.querySelector('.social__picture');
 
-    commetatorPicture.src = comment.avatar;
-    commetatorPicture.alt = comment.name;
+    commentatorPicture.src = comment.avatar;
+    commentatorPicture.alt = comment.name;
     commentItem.querySelector('.social__text').textContent = comment.message;
 
     commentsFragment.appendChild(commentItem);
